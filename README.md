@@ -1,153 +1,96 @@
-# INFINITY – The Tech Society | SGGSCC, University of Delhi
+# INFINITY // Premium Cyberpunk Technology Society
 
-> **Official Design Philosophy:** *"Beyond Limits. Beyond Imagination. Infinite Possibilities."*
-
-A digital platform and student engagement ecosystem designed and architected for **INFINITY – The Tech Society** of **Sri Guru Gobind Singh College of Commerce (SGGSCC), University of Delhi**.
-
----
-
-## 🌟 Visual Identity & Key Highlights
-
-- **Cinematic Aesthetic:** Deep black and charcoal foundations with electric violet (`#a855f7`), neon cyan (`#06b6d4`), and magenta accents, paired with layered glassmorphism.
-- **Interactive 3D Lemniscate Canvas:** Mathematically modeled Bernoulli 3D particle stream with real-time mouse interaction, particle physics, and depth projection.
-- **Procedural Sound FX Engine:** Low-latency Web Audio API synthesizer for futuristic clicks, hovers, and achievement chimes with a persistent audio toggle.
-- **3D Perspective Cards:** Interactive tilt reactions with specular highlights.
-- **Dual Visual Mode:** Instant toggle between procedural 3D particle simulation and glowing luminous ribbon loop.
+> **"BEYOND THE LIMITS."**  
+> Official Technology Society of Sri Guru Gobind Singh College of Commerce (SGGSCC), University of Delhi.
 
 ---
 
-## 🏛️ Verified Historical Records (Truthful Attribution)
+## ⚡ Architecture & Tech Stack
 
-In strict accordance with the brand guidelines, all historical claims on this platform are preserved with authentic context:
+This project has been modernized and structured with:
+- **Core Framework:** React 18
+- **Build Tool:** Vite 6
+- **Language:** Modern JavaScript (ES Modules, JSX)
+- **Styling & Design System:** Tailwind CSS v3 with PostCSS & Autoprefixer
+- **Icons:** Lucide React
 
-| Category | Verified Historical Record | Context / Source |
+---
+
+## 🎨 Visual Design System Tokens
+
+Configured centrally in `tailwind.config.js`, `src/config/theme.js`, and `src/styles/index.css`:
+
+| Token | Hex Value | Role & Usage |
 | :--- | :--- | :--- |
-| **Institution** | Sri Guru Gobind Singh College of Commerce | Opposite TV Tower, Pitampura, Delhi – 110034 |
-| **Affiliation** | University of Delhi | Recognized collegiate society |
-| **2025–26 President** | **Kulsehaj Singh** | Verified via official LinkedIn profile |
-| **2025–26 Vice-President** | **Advay Nagpal** | Verified via official LinkedIn profile |
-| **2025–26 General Secretary** | **Harshmohan Singh** | Verified via official LinkedIn profile |
-| **2025–26 Joint Secretary** | **Harnoor Kaur** | Verified via official LinkedIn profile |
-| **2025–26 Advisory** | **Prabhleen Kaur** | Verified via official LinkedIn profile |
-| **Cybersecurity Event** | **100+ Active Attendees** | 8 October 2025 On-Campus Summit |
-| **Digital Outreach Drive** | **200+ Students Reached** | Grassroots Digital Literacy Mission |
-| **Esports Flagship** | **30 Competing Squads** | BGMI Showdown 2.0 Collegiate Championship |
-| **Professional Webinar** | LinkedIn Optimization Masterclass | 6 February 2026 Session |
+| **Background** | `#070711` | Deep void foundation, canvas background, body color |
+| **Neon Violet** | `#8B5CF6` | Quantum AI, ambient auroras, telemetry accents |
+| **Cyber Cyan** | `#00E5FF` | High-voltage data lines, primary buttons, glyph glow |
+| **Acid Green** | `#C6FF00` | Operational status indicators, terminal highlights, badges |
+
+### Cyberpunk Visual Elements
+- **Chamfered Geometries:** Custom `.clip-cyber-corner` and `.clip-cyber-badge` polygon cutouts
+- **CRT / HUD Overlays:** Subtle grid matrix (`bg-cyber-grid`) with scanline illumination
+- **Typography:** Orbitron (Headings), Rajdhani (Body & Subheadings), JetBrains Mono (Telemetry & Code)
 
 ---
 
-## 🚀 Complete Platform Architecture (11 Pages & Modules)
+## 📁 Component-Based Folder Structure
 
-1. **PAGE 1 — HOME & HERO:**
-   - Cinematic hero headline: *"BEYOND THE LIMITS."*
-   - Interactive 3D Lemniscate Canvas / Luminous Ribbon Loop toggle.
-   - Primary CTAs: *Explore INFINITY* & *Join the Community*.
-   - *"MORE THAN JUST A TECH SOCIETY"* interactive 5-pillar breakdown: Innovation, Technology, Gaming, Creativity, Community.
-   - Verified impact counter preview strip.
-
-2. **PAGE 2 — ABOUT INFINITY:**
-   - Comprehensive Our Story, Our Mission, and Our Vision.
-   - *"WHAT MAKES US INFINITE?"* 5 foundational dimensions.
-   - Authentic institutional attribution (SGGSCC, Pitampura, Delhi).
-
-3. **PAGE 3 — EXPLORE OUR DOMAINS:**
-   - 5 interactive 3D tilt cards with icons, syllabi, and sample lab activities:
-     - **AI & Innovation**
-     - **Cybersecurity**
-     - **Gaming & Esports**
-     - **Creativity & Design**
-     - **Community & Professional Growth**
-   - Click-to-expand deep dive modal for each domain.
-
-4. **PAGE 4 — EVENTS & COMPETITIONS:**
-   - Interactive event discovery engine.
-   - Real-time text search and category filter tabs (*All, Upcoming Preview, Verified Past, Workshops, Gaming, Webinars*).
-   - Event detail modal with highlights, speaker info, and venue.
-   - Interactive RSVP / Ticket Registration modal generating a **Digital Entry Pass** saved to the student portal.
-
-5. **PAGE 5 — IMPACT & ACHIEVEMENTS:**
-   - Animated numerical counters with strict event-specific context.
-   - Interactive Historical Timeline featuring major society milestones.
-
-6. **PAGE 6 — MEDIA GALLERY:**
-   - Editorial masonry grid with category filters (*Branding, Gaming, Workshops, Social Impact*).
-   - Click-to-expand lightbox viewer with keyboard Escape support.
-
-7. **PAGE 7 — OUR LEADERSHIP:**
-   - Profile cards for 2025–26 executive office bearers with LinkedIn verified links, role descriptions, and bio details.
-
-8. **PAGE 8 — JOIN INFINITY (RECRUITMENT PORTAL):**
-   - *"JOIN THE INFINITE SIDE."*
-   - Section A: Why Join INFINITY (6 tangible value propositions).
-   - Section B: Recruitment Requirements & selection criteria.
-   - Section C: Animated 6-stage Recruitment Journey timeline.
-   - Section D: Recruitment cycle status simulator.
-   - Section E: Functional application form with validation, localStorage persistence, and instant applicant receipt generation.
-
-9. **PAGE 9 — STUDENT DASHBOARD ("INFINITY CONNECT"):**
-   - Simulated student portal authentication with 1-click instant demo login as **Simranjeet Kaur**.
-   - Profile header with course, year, roll number, activity points (840 pts), and rank (#7).
-   - Registered events tab with digital tickets and pass codes.
-   - Official verified certificates view with cryptographic certificate IDs.
-   - Chronological participation log.
-
-10. **PAGE 10 — COMMUNITY LEADERBOARD:**
-    - Interactive honor roll table with rankings, avatars, scores, and domain badges.
-    - Timeframe filters (*Overall, This Month, This Week*).
-    - Clear demonstration data disclaimer.
-
-11. **PAGE 11 — CONTACT US & PREMIUM FOOTER:**
-    - Official SGGSCC college address: *Opposite TV Tower, Pitampura, Delhi – 110034*.
-    - College phone (*011-20871260 / 20871262*) and college email (*principaloffice@sggscc.du.ac.in*).
-    - Society desk contact and recruitment coordinator details.
-    - Embedded interactive Google Map with campus coordinates + "Get Directions" link.
-    - Verified social media buttons opening Instagram, LinkedIn, and SGGSCC official site in new tabs.
-    - Interactive contact message form with validation and feedback alert.
-
----
-
-## 💻 How to Run Locally
-
-This project is built with zero-build web technologies (modern ES modules, Tailwind CSS, Lucide Icons, HTML5 Canvas, Web Audio API), which means you can run it immediately without complex toolchains:
-
-### Option 1: Direct File Opening
-Double-click `index.html` in your file explorer, or open it directly in Google Chrome, Microsoft Edge, Firefox, or Safari.
-
-### Option 2: VS Code Live Server
-1. Open the folder `INFINITY` in VS Code.
-2. Right-click `index.html` and click **"Open with Live Server"**.
-
-### Option 3: Node / NPX
-If Node.js is installed on your machine:
-```bash
-npx serve .
+```
+INFINITY/
+├── public/                 # Static assets served at root
+│   └── assets/images/      # Team portraits and cyberpunk wallpapers
+├── src/
+│   ├── components/
+│   │   ├── common/         # Atomic cyberpunk UI primitives
+│   │   │   ├── CyberButton.jsx   # Chamfered glowing buttons (variants: cyan, violet, acid)
+│   │   │   ├── CyberBadge.jsx    # Pulsing status badges
+│   │   │   └── CyberCard.jsx     # Futuristic panels with bracketed corners
+│   │   ├── layout/         # Core layout shells
+│   │   │   ├── Navbar.jsx        # Glassmorphism header with telemetry bar & mobile drawer
+│   │   │   ├── Footer.jsx        # Society information, uplinks, and copyright
+│   │   │   └── AmbientBackground.jsx # Cyber grid matrix with radial neon auroras
+│   │   └── sections/       # Landing page page-level sections
+│   │       ├── HeroSection.jsx   # Headline, tagline, stats HUD, primary CTAs
+│   │       ├── SocietyPillars.jsx# Department cards (AI, Cyber Defense, Matrix, Esports)
+│   │       └── ColorPaletteHUD.jsx # Interactive design token inspector & gradient bar
+│   ├── config/
+│   │   ├── constants.js    # Society facts, department data, and navigation links
+│   │   └── theme.js        # Design system tokens (#070711, #8B5CF6, #00E5FF, #C6FF00)
+│   ├── styles/
+│   │   └── index.css       # Tailwind directives, custom clip-paths, text glows, scrollbars
+│   ├── App.jsx             # Root landing page composition
+│   └── main.jsx            # React root mount
+├── _legacy_static/         # Archived static prototype files
+├── index.html              # HTML5 entry with Google Fonts preloads
+├── package.json            # Scripts & project dependencies
+├── tailwind.config.js      # Custom theme colors, animations, and shadows
+├── postcss.config.js       # PostCSS Tailwind + Autoprefixer configuration
+└── vite.config.js          # Vite React plugin configuration
 ```
 
-### Option 4: Python HTTP Server
+---
+
+## 🚀 Running the Project
+
+### 1. Install Dependencies
 ```bash
-python -m http.server 8000
+npm install
 ```
-Then visit `http://localhost:8000`.
 
----
+### 2. Start Development Server
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## ☁️ Deployment Instructions
+### 3. Build for Production
+```bash
+npm run build
+```
+Generates production-optimized output in `dist/`.
 
-### Deploy to Vercel (1-Click)
-1. Push this repository to GitHub or GitLab.
-2. Go to [vercel.com](https://vercel.com) and import the repository.
-3. Keep the default settings (Framework Preset: **Other**, Root Directory: `./`).
-4. Click **Deploy**. Vercel will automatically read `vercel.json` and serve the site globally on edge CDN.
-
-### Deploy to Netlify
-1. Connect your repository on [netlify.com](https://netlify.com).
-2. Netlify will detect `netlify.toml` automatically.
-3. Click **Deploy Site**.
-
----
-
-## 🔒 Demo-Only Features & Clarifications
-
-1. **Simulated Authentication:** Login/logout is implemented on the frontend using localStorage so evaluators can test the personalized student portal immediately without needing real university OAuth servers.
-2. **Upcoming Events (e.g. NEXUS Hackathon, Aegis CTF):** Clearly tagged as *Demonstration Previews* to showcase registration and ticket generation until official executive clearances are finalized.
-3. **Application Form:** Submissions are recorded locally with instant receipt IDs for evaluation purposes.
+### 4. Preview Production Build
+```bash
+npm run preview
+```
