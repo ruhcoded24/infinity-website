@@ -1,0 +1,20 @@
+{
+  "name": "infinity-tech-society-sggscc",
+  "version": "1.0.0",
+  "description": "Official interactive platform for INFINITY – The Tech Society of Sri Guru Gobind Singh College of Commerce (SGGSCC), University of Delhi.",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  },
+  "keywords": [
+    "infinity",
+    "sggscc",
+    "delhi-university",
+    "tech-society",
+    "ai",
+    "cybersecurity",
+    "esports"
+  ],
+  "author": "INFINITY SGGSCC",
+  "license": "MIT"
+}
