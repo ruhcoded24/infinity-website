@@ -380,8 +380,8 @@ export const TEAM_MEMBERS = [
     isHistorical: true,
     domain: "Executive Leadership & Tech Strategy",
     bio: "Passionate tech strategist and leader driving society initiatives, inter-college collaborations, and student empowerment across Delhi University.",
-    linkedin: "https://www.linkedin.com/company/infinitysggscc",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+    linkedin: "https://www.linkedin.com/in/kulsehajsingh/",
+    image: "assets/images/team/kulsehaj-singh.jpg",
     skills: ["Strategic Vision", "Community Building", "Public Speaking", "Full-Stack Development"]
   },
   {
@@ -392,8 +392,8 @@ export const TEAM_MEMBERS = [
     isHistorical: true,
     domain: "Operations & Technical Direction",
     bio: "Architecting seamless execution of events, hackathons, and cross-domain synergy across tech and creative pipelines.",
-    linkedin: "https://www.linkedin.com/company/infinitysggscc",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+    linkedin: "https://www.linkedin.com/in/advay-nagpal-778271333/",
+    image: "assets/images/team/advay-nagpal.jpg",
     skills: ["Operations Management", "Event Planning", "Team Mentorship", "System Architecture"]
   },
   {
@@ -405,19 +405,19 @@ export const TEAM_MEMBERS = [
     domain: "Administration & External Relations",
     bio: "Coordinating administrative frameworks, institutional liaisons, and student engagement initiatives across departments.",
     linkedin: "https://www.linkedin.com/company/infinitysggscc",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+    image: "assets/images/team/harshmohan-singh.jpg",
     skills: ["Institutional Relations", "Workflow Automation", "Public Relations", "Team Governance"]
   },
   {
     id: "member-harnoor",
-    name: "Harnoor Kaur",
+    name: "Harnoor Kaur Gulati",
     role: "Joint Secretary",
     session: "2025–26 Office Bearer",
     isHistorical: true,
     domain: "Program Coordination & Outreach",
     bio: "Spearheading community outreach, speaker coordination, and fostering inclusive participation across all academic years.",
-    linkedin: "https://www.linkedin.com/company/infinitysggscc",
-    image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
+    linkedin: "https://www.linkedin.com/in/harnoor-kaur-gulati-048959315/",
+    image: "assets/images/team/harnoor-kaur.jpg",
     skills: ["Outreach Strategy", "Event Logistics", "Digital Communication", "Creative Coordination"]
   },
   {
@@ -428,8 +428,8 @@ export const TEAM_MEMBERS = [
     isHistorical: true,
     domain: "Strategic Mentorship & Quality Assurance",
     bio: "Providing senior governance, pedagogical direction, and bridging alumni-to-student opportunities for continuous society evolution.",
-    linkedin: "https://www.linkedin.com/company/infinitysggscc",
-    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80",
+    linkedin: "https://www.linkedin.com/in/prabhleen-kaur-816235265/",
+    image: "assets/images/team/prabhleen-kaur.jpg",
     skills: ["Curriculum Advisory", "Career Roadmaps", "Leadership Mentorship", "Quality Benchmarking"]
   }
 ];
@@ -487,12 +487,12 @@ export const GALLERY_ITEMS = [
 
 export const DEMO_STUDENT = {
   id: "std-sggscc-2026-442",
-  name: "Simranjeet Kaur",
-  collegeEmail: "simranjeet.2024@sggscc.du.ac.in",
+  name: "Ruhani Layal",
+  collegeEmail: "ruhani.layal@sggscc.du.ac.in",
   course: "B.Sc (Hons.) Computer Science",
   year: "2nd Year",
   rollNo: "CS/24/089",
-  avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
+  avatar: "assets/images/ruhani-layal.jpg",
   points: 840,
   rank: 7,
   tier: "Cyber Elite",
@@ -563,7 +563,7 @@ export const LEADERBOARD = [
   { rank: 4, name: "Rishabh Malhotra", course: "BMS, 2nd Yr", points: 1040, events: 6, badge: "Design Maestro", domain: "Creativity" },
   { rank: 5, name: "Harjas Singh", course: "B.Sc (H) CS, 1st Yr", points: 980, events: 5, badge: "Esports Ace", domain: "Gaming" },
   { rank: 6, name: "Jasleen Kaur", course: "B.Com (P), 2nd Yr", points: 890, events: 5, badge: "Code Crusader", domain: "AI & Innovation" },
-  { rank: 7, name: "Simranjeet Kaur", course: "B.Sc (H) CS, 2nd Yr", points: 840, events: 4, badge: "Cyber Elite", domain: "Cybersecurity" },
+  { rank: 7, name: "Ruhani Layal", course: "B.Sc (H) CS, 2nd Yr", points: 840, events: 4, badge: "Cyber Elite", domain: "Cybersecurity" },
   { rank: 8, name: "Manav Sethi", course: "BMS, 1st Yr", points: 760, events: 4, badge: "Rising Talent", domain: "Community" },
   { rank: 9, name: "Prabhnoor Singh", course: "B.Com (H), 2nd Yr", points: 710, events: 3, badge: "Tactical Strategist", domain: "Gaming" },
   { rank: 10, name: "Divya Sharma", course: "B.A. (H) Economics", points: 680, events: 3, badge: "Creative Prodigy", domain: "Creativity" }

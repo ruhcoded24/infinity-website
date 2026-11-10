@@ -914,7 +914,18 @@ function initAuthState() {
   // Check if simulated user is logged in
   const savedUser = localStorage.getItem('infinity_current_user');
   if (savedUser) {
-    state.currentUser = JSON.parse(savedUser);
+    try {
+      const parsed = JSON.parse(savedUser);
+      // Migrate previous demo session to current profile
+      if (!parsed || parsed.name === 'Simranjeet Kaur' || !parsed.avatar || parsed.avatar.includes('unsplash')) {
+        state.currentUser = DEMO_STUDENT;
+        localStorage.setItem('infinity_current_user', JSON.stringify(DEMO_STUDENT));
+      } else {
+        state.currentUser = parsed;
+      }
+    } catch (e) {
+      state.currentUser = DEMO_STUDENT;
+    }
   } else {
     state.currentUser = DEMO_STUDENT; // Default demo student for seamless immediate evaluation
   }
@@ -927,8 +938,9 @@ function updateAuthUi() {
   const mobileNavText = document.getElementById('mobile-auth-text');
 
   if (state.currentUser) {
-    if (navText) navText.textContent = 'Portal: Simranjeet';
-    if (mobileNavText) mobileNavText.textContent = 'My Student Portal';
+    const firstName = state.currentUser.name ? state.currentUser.name.split(' ')[0] : 'Ruhani';
+    if (navText) navText.textContent = `Portal: ${firstName}`;
+    if (mobileNavText) mobileNavText.textContent = `Portal: ${firstName}`;
   } else {
     if (navText) navText.textContent = 'Login';
     if (mobileNavText) mobileNavText.textContent = 'Student Login';
@@ -939,6 +951,7 @@ function renderDashboard() {
   const user = state.currentUser || DEMO_STUDENT;
 
   // Header data
+  const avatarEl = document.getElementById('dash-avatar');
   const nameEl = document.getElementById('dash-name');
   const courseEl = document.getElementById('dash-course-info');
   const emailEl = document.getElementById('dash-email');
@@ -947,6 +960,7 @@ function renderDashboard() {
   const rankEl = document.getElementById('dash-rank');
   const tierEl = document.getElementById('dash-tier');
 
+  if (avatarEl && user.avatar) avatarEl.src = user.avatar;
   if (nameEl) nameEl.textContent = user.name;
   if (courseEl) courseEl.textContent = `${user.course} • ${user.year} • Roll: ${user.rollNo || 'CS/24/089'}`;
   if (emailEl) emailEl.textContent = user.collegeEmail;
