@@ -143,6 +143,9 @@ function bindVisualModeToggle() {
     sfx.playClick();
     canvasEl.classList.remove('hidden');
     overlayEl.classList.add('hidden');
+    if (canvasInstance) {
+      canvasInstance.resize();
+    }
     canvasBtn.className = 'px-2 py-0.5 rounded text-purple-300 bg-purple-950 font-semibold border border-purple-500/40';
     neonBtn.className = 'px-2 py-0.5 rounded text-slate-400 hover:text-white';
   });

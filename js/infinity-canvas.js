@@ -39,17 +39,20 @@ export class InfinityCanvas {
 
   resize() {
     const parent = this.canvas.parentElement;
-    if (!parent) return;
+    if (!parent || !parent.clientWidth || !parent.clientHeight) return;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     this.width = parent.clientWidth;
     this.height = parent.clientHeight;
     this.canvas.width = this.width * dpr;
     this.canvas.height = this.height * dpr;
-    this.ctx.scale(dpr, dpr);
+    this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     this.centerX = this.width / 2;
     this.centerY = this.height / 2;
     this.scale = Math.min(this.width * 0.38, this.height * 0.36, 260);
+    if (this.reducedMotion) {
+      this.renderStatic();
+    }
   }
 
   createParticles() {
@@ -90,10 +93,19 @@ export class InfinityCanvas {
     
     window.addEventListener('mousemove', (e) => {
       const rect = this.canvas.getBoundingClientRect();
+      // When the canvas is hidden (display: none), rect.width/height are 0;
+      // skipping prevents division by zero from poisoning mouseX/mouseY with Infinity/NaN.
+      if (!rect.width || !rect.height) {
+        this.targetMouseX = 0;
+        this.targetMouseY = 0;
+        return;
+      }
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      this.targetMouseX = (x - rect.width / 2) / (rect.width / 2);
-      this.targetMouseY = (y - rect.height / 2) / (rect.height / 2);
+      const nx = (x - rect.width / 2) / (rect.width / 2);
+      const ny = (y - rect.height / 2) / (rect.height / 2);
+      this.targetMouseX = Number.isFinite(nx) ? Math.max(-1.5, Math.min(1.5, nx)) : 0;
+      this.targetMouseY = Number.isFinite(ny) ? Math.max(-1.5, Math.min(1.5, ny)) : 0;
     });
 
     this.canvas.addEventListener('mouseenter', () => {
@@ -163,6 +175,15 @@ export class InfinityCanvas {
     if (this.reducedMotion) {
       this.renderStatic();
       return;
+    }
+
+    if (!Number.isFinite(this.mouseX)) this.mouseX = 0;
+    if (!Number.isFinite(this.mouseY)) this.mouseY = 0;
+    if (!Number.isFinite(this.targetMouseX)) this.targetMouseX = 0;
+    if (!Number.isFinite(this.targetMouseY)) this.targetMouseY = 0;
+
+    if (!this.width || !this.height) {
+      this.resize();
     }
 
     this.ctx.clearRect(0, 0, this.width, this.height);
