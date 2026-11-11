@@ -858,13 +858,18 @@
             <input type="url" id="rec-portfolio" placeholder="https://linkedin.com/in/... or github.com/..." class="w-full px-4 py-2.5 bg-surface rounded-xl border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500">
           </div>
 
+          <div id="recruitment-error-box" role="alert" class="hidden p-3 rounded-xl bg-red-950/60 border border-red-500/40 text-red-300 text-xs flex items-start gap-2">
+            <i data-lucide="alert-circle" class="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5"></i>
+            <span id="recruitment-error-text"></span>
+          </div>
+
           <div class="pt-2">
-            <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 text-white font-semibold text-sm uppercase tracking-wider shadow-lg shadow-purple-600/30 hover:scale-[1.01] active:scale-[0.99] transition duration-200 flex items-center justify-center gap-2">
+            <button type="submit" id="recruitment-submit-btn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-cyan-500 text-white font-semibold text-sm uppercase tracking-wider shadow-lg shadow-purple-600/30 hover:scale-[1.01] active:scale-[0.99] transition duration-200 flex items-center justify-center gap-2">
               <i data-lucide="send" class="w-4 h-4"></i>
-              <span>Submit Application (Demo Prototype)</span>
+              <span>Submit Application</span>
             </button>
             <p class="text-[11px] text-slate-500 font-mono text-center mt-2">
-              Submissions are recorded in local demo storage for prototype demonstration purposes.
+              Applications are securely saved to the INFINITY SGGSCC Supabase database.
             </p>
           </div>
         </form>
@@ -1194,15 +1199,20 @@
                 <textarea id="contact-message" rows="3" required placeholder="How can we build the future together?" class="w-full px-4 py-2 bg-surface rounded-xl border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500"></textarea>
               </div>
 
-              <button type="submit" class="px-6 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs uppercase tracking-wider transition flex items-center gap-2">
+              <div id="contact-error-state" role="alert" class="hidden p-3 rounded-xl bg-red-950/60 border border-red-500/40 text-red-300 text-xs flex items-start gap-2">
+                <i data-lucide="alert-circle" class="w-4 h-4 text-red-400 flex-shrink-0 mt-0.5"></i>
+                <span id="contact-error-text"></span>
+              </div>
+
+              <button type="submit" id="contact-submit-btn" class="px-6 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs uppercase tracking-wider transition flex items-center gap-2">
                 <i data-lucide="send" class="w-3.5 h-3.5"></i>
-                <span>Send Message (Demo)</span>
+                <span>Send Message</span>
               </button>
             </form>
 
             <div id="contact-success-state" class="hidden text-emerald-400 text-xs py-3 font-mono flex items-center gap-2">
               <i data-lucide="check-circle" class="w-4 h-4"></i>
-              <span>Thank you! Your message has been received in demo preview mode.</span>
+              <span>Thank you! Your inquiry has been received and saved. Our team will reach out soon.</span>
             </div>
           </div>
         </div>

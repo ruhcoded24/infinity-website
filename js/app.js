@@ -18,8 +18,36 @@ import {
 
 import { InfinityCanvas } from './infinity-canvas.js';
 import { sfx } from './audio.js';
+import {
+  submitContactInquiry,
+  submitRecruitmentApplication,
+  submitEventRegistration,
+  cancelEventRegistrationInDb,
+  saveStudentProfileToDb
+} from './supabase.js';
 
 const EVENT_REGISTRATIONS_KEY = 'infinity_event_registrations';
+const PROFILE_TOKEN_KEY = 'infinity_profile_token';
+
+function generateUuidV4() {
+  if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+    return window.crypto.randomUUID();
+  }
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, ch => {
+    const r = Math.floor(Math.random() * 16);
+    const v = ch === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+
+function getOrCreateProfileToken() {
+  let token = localStorage.getItem(PROFILE_TOKEN_KEY);
+  if (!token) {
+    token = generateUuidV4();
+    localStorage.setItem(PROFILE_TOKEN_KEY, token);
+  }
+  return token;
+}
 
 // Application State
 const state = {
@@ -912,28 +940,75 @@ function bindRecruitmentForm() {
   const successPanel = document.getElementById('recruitment-success-panel');
   const receiptEl = document.getElementById('receipt-id');
   const resetBtn = document.getElementById('reset-application-btn');
+  const errorBox = document.getElementById('recruitment-error-box');
+  const errorText = document.getElementById('recruitment-error-text');
+  const submitBtn = document.getElementById('recruitment-submit-btn');
 
   if (!form) return;
 
-  form.addEventListener('submit', (e) => {
+  const showError = (msg) => {
+    if (errorText) errorText.textContent = msg;
+    if (errorBox) errorBox.classList.remove('hidden');
+  };
+  const clearError = () => {
+    if (errorText) errorText.textContent = '';
+    if (errorBox) errorBox.classList.add('hidden');
+  };
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    sfx.playSuccess();
+    clearError();
 
     const applicationData = {
       id: `INF-2026-${Math.floor(1000 + Math.random() * 9000)}`,
-      name: document.getElementById('rec-name').value,
-      email: document.getElementById('rec-email').value,
-      course: document.getElementById('rec-course').value,
-      year: document.getElementById('rec-year').value,
-      phone: document.getElementById('rec-phone').value,
-      domain: document.getElementById('rec-domain').value,
-      skills: document.getElementById('rec-skills').value,
-      why: document.getElementById('rec-why').value,
-      portfolio: document.getElementById('rec-portfolio').value,
+      name: document.getElementById('rec-name').value.trim(),
+      email: document.getElementById('rec-email').value.trim(),
+      course: document.getElementById('rec-course').value.trim(),
+      year: document.getElementById('rec-year').value.trim(),
+      phone: document.getElementById('rec-phone').value.trim(),
+      domain: document.getElementById('rec-domain').value.trim(),
+      skills: document.getElementById('rec-skills').value.trim(),
+      why: document.getElementById('rec-why').value.trim(),
+      portfolio: document.getElementById('rec-portfolio').value.trim(),
       submittedAt: new Date().toISOString()
     };
 
-    // Save to local storage for demo verification
+    if (!applicationData.name || !applicationData.email || !applicationData.course || !applicationData.phone || !applicationData.why) {
+      showError('Please fill in all required application fields.');
+      return;
+    }
+    if (!EMAIL_FORMAT_REGEX.test(applicationData.email)) {
+      showError('Please enter a valid college email address.');
+      return;
+    }
+    if (applicationData.phone.replace(/\D/g, '').length < 7) {
+      showError('Please enter a valid phone number.');
+      return;
+    }
+
+    const originalHtml = submitBtn ? submitBtn.innerHTML : '';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Submitting Application...</span>';
+    }
+
+    try {
+      await submitRecruitmentApplication(applicationData);
+    } catch (err) {
+      showError(err?.message || 'Unable to submit application right now. Please try again.');
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalHtml;
+      }
+      return;
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalHtml;
+    }
+
+    sfx.playSuccess();
     const existing = JSON.parse(localStorage.getItem('infinity_demo_applications') || '[]');
     existing.push(applicationData);
     localStorage.setItem('infinity_demo_applications', JSON.stringify(existing));
@@ -946,6 +1021,7 @@ function bindRecruitmentForm() {
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
       form.reset();
+      clearError();
       form.classList.remove('hidden');
       successPanel.classList.add('hidden');
     });
@@ -1321,13 +1397,62 @@ function bindLeaderboardFilters() {
 function bindContactForm() {
   const form = document.getElementById('contact-message-form');
   const successState = document.getElementById('contact-success-state');
+  const errorBox = document.getElementById('contact-error-state');
+  const errorText = document.getElementById('contact-error-text');
+  const submitBtn = document.getElementById('contact-submit-btn');
 
   if (!form) return;
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    sfx.playSuccess();
+  const showError = (msg) => {
+    if (errorText) errorText.textContent = msg;
+    if (errorBox) errorBox.classList.remove('hidden');
+  };
+  const clearError = () => {
+    if (errorText) errorText.textContent = '';
+    if (errorBox) errorBox.classList.add('hidden');
+  };
 
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearError();
+
+    const name = (document.getElementById('contact-name')?.value || '').trim();
+    const email = (document.getElementById('contact-email')?.value || '').trim();
+    const subject = (document.getElementById('contact-subject')?.value || '').trim();
+    const message = (document.getElementById('contact-message')?.value || '').trim();
+
+    if (!name || !email || !subject || !message) {
+      showError('Please fill in your name, email, subject, and message.');
+      return;
+    }
+    if (!EMAIL_FORMAT_REGEX.test(email)) {
+      showError('Please enter a valid email address.');
+      return;
+    }
+
+    const originalHtml = submitBtn ? submitBtn.innerHTML : '';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Sending...</span>';
+    }
+
+    try {
+      await submitContactInquiry({ name, email, subject, message });
+    } catch (err) {
+      showError(err?.message || 'Unable to send your message right now. Please try again.');
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalHtml;
+      }
+      return;
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalHtml;
+    }
+
+    sfx.playSuccess();
     form.classList.add('hidden');
     successState.classList.remove('hidden');
 
@@ -1447,6 +1572,7 @@ function isSavedRegistration(registrationId) {
 function cancelRegistrationById(registrationId) {
   if (!registrationId) return false;
   const saved = loadSavedRegistrations();
+  const target = saved.find(reg => reg.id === registrationId);
   const next = saved.filter(reg => reg.id !== registrationId);
   if (next.length === saved.length) return false;
 
@@ -1455,6 +1581,13 @@ function cancelRegistrationById(registrationId) {
   sfx.playClick();
   renderDashboard();
   renderEvents();
+
+  if (target?.passToken && target?.ticketCode) {
+    cancelEventRegistrationInDb({
+      passToken: target.passToken,
+      ticketCode: target.ticketCode
+    }).catch(() => {});
+  }
 
   if (activePassRegistrationId === registrationId) {
     activePassRegistrationId = null;
@@ -1616,13 +1749,14 @@ function bindEventRegistrationForm() {
     }
   });
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     clearEventRegistrationError();
 
     const nameInput = document.getElementById('evreg-name');
     const emailInput = document.getElementById('evreg-email');
     const eventSelect = document.getElementById('evreg-event');
+    const submitBtn = form.querySelector('button[type="submit"]');
 
     const studentName = nameInput ? nameInput.value.trim() : '';
     const email = emailInput ? emailInput.value.trim() : '';
@@ -1636,8 +1770,10 @@ function bindEventRegistrationForm() {
 
     const evt = EVENTS.find(item => item.id === eventId);
     const { ticketCode, passRef } = generateTicketCode(evt.category);
+    const passToken = generateUuidV4();
     const newRegistration = {
       id: `${evt.id}-${Date.now()}`,
+      passToken,
       eventId: evt.id,
       title: evt.title,
       date: evt.displayDate,
@@ -1650,6 +1786,32 @@ function bindEventRegistrationForm() {
       email,
       registeredAt: new Date().toISOString()
     };
+
+    const originalHtml = submitBtn ? submitBtn.innerHTML : '';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Registering...</span>';
+    }
+
+    try {
+      await submitEventRegistration(newRegistration);
+    } catch (err) {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalHtml;
+      }
+      if (err?.status === 409 || err?.code === '23505') {
+        showEventRegistrationError(`You are already registered for "${evt.title}" with ${email}.`);
+      } else {
+        showEventRegistrationError(err?.message || 'Unable to complete registration. Please try again.');
+      }
+      return;
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalHtml;
+    }
 
     const existing = loadSavedRegistrations();
     existing.unshift(newRegistration);
@@ -2320,7 +2482,7 @@ function bindModals() {
       if (el) el.addEventListener('input', clearEditProfileError);
     });
 
-    editProfileForm.addEventListener('submit', (e) => {
+    editProfileForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       clearEditProfileError();
 
@@ -2360,6 +2522,33 @@ function bindModals() {
         tier,
         bio
       };
+
+      const submitBtn = editProfileForm.querySelector('button[type="submit"]');
+      const originalHtml = submitBtn ? submitBtn.innerHTML : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Saving...</span>';
+      }
+
+      try {
+        await saveStudentProfileToDb({
+          profileToken: getOrCreateProfileToken(),
+          user: updatedUser
+        });
+      } catch (err) {
+        if (editProfErrorText) editProfErrorText.textContent = err?.message || 'Unable to save profile to server right now.';
+        if (editProfErrorBox) editProfErrorBox.classList.remove('hidden');
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalHtml;
+        }
+        return;
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalHtml;
+      }
 
       state.currentUser = updatedUser;
       localStorage.setItem('infinity_current_user', JSON.stringify(updatedUser));
